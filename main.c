@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+#define MAX_LENGTH 10000
 
 void main(){
   /*This is the initial thought of my program that I have in my mind before
@@ -11,6 +11,12 @@ void main(){
 //executes operation
 //repeat still the end of line.
 //exits
+
+	int* strip =(int*) malloc(MAX_LENGTH*sizeof(int));
+
+//intrstructions to implement: + - > < (for now)
+	int st_position = MAX_LENGTH /2-1;
+	printf("%d",st_position);
 
 }
 
