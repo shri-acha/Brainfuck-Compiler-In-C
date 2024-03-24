@@ -22,7 +22,7 @@ void main(){
 
 void brain_fuck_compiler(int status,int curr_position){
 
-
+//To implement: [ ] loops and . , "," operations
 	
 	static char instruction_array[MAX_LENGTH];
 	static int strip[MAX_LENGTH];
@@ -30,8 +30,6 @@ void brain_fuck_compiler(int status,int curr_position){
 	
 	static int instruction_position =0;
 	if(status){
-	//instructions to implement: + - > < (for now)
-	//only opens the file for reading into the instruction array.
 		FILE* main_file;
 	 	int curr_position=MAX_LENGTH/2 -1;
 
