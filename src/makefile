@@ -4,7 +4,8 @@ compile:main.c execute
 	gcc  main.c -o main.o
 
 execute: main.o
-	./main.o
+	@read -p "Enter File Directory: " file;
+	./main.o $$file 
 
 clean:main.o
 	@echo "Removing binaries"
