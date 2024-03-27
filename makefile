@@ -1,13 +1,11 @@
-all:final
-
-final: main.o execute clean
-
-main.o: main.c
+all:compile
+compile:main.c execute
 	@echo "Compiling main file"
 	gcc  main.c -o main.o
+
 execute: main.o
-	@echo "Compiling main file"
 	./main.o
-clean:
-	@echo "removing files"
+
+clean:main.o
+	@echo "Removing binaries"
 	rm main.o
