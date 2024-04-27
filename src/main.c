@@ -94,7 +94,6 @@ void brain_fuck_compiler(int status,int curr_position){
 			start_loop_memory_position=curr_position;
 			start_loop_instruction_position=instruction_position;
 			instruction_position++;		
-			printf("Loop Starts: WOOOOHOO!\n");
 			brain_fuck_compiler(0,curr_position);
 		
 		}
@@ -105,7 +104,6 @@ void brain_fuck_compiler(int status,int curr_position){
 
 		if(!strip[start_loop_memory_position]){
 			instruction_position++;
-			printf("Memory location Nulled\n");
 			brain_fuck_compiler(0,curr_position);
 		}	
 			else
