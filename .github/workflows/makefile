@@ -1,12 +1,11 @@
 all:compile
-compile:main.c execute
+compile:../../src/main.c execute
 	@echo "Compiling main file"
 	gcc  ../../src/main.c -o ../../src/main.o
 
-execute: main.o
-	@read -p "Enter File Directory: " file;
-	../../src/main.o $$file 
+execute: ../../src/main.o
+	../../src/main.o ../../src/main.c 
 
-clean:main.o
+clean:../../src/main.o
 	@echo "Removing binaries"
 	rm main.o
