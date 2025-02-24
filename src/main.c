@@ -2,6 +2,8 @@
 #include<stdlib.h>
 #include<unistd.h>
 #include<string.h>
+#include "lexer.h"
+
 #define MAX_LENGTH 10000
 
 void brain_fuck_compiler(int,int);
@@ -16,9 +18,8 @@ void main(int argv,char* argc[]){
 //executes operation
 //repeat still the end of line.
 //exits
-	
 	brain_fuck_compiler(1,0);
-
+  tokenizer("Hello World!",(size_t)strlen("Hello World!"));
 	return;
 	}
 
