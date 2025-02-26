@@ -3,49 +3,54 @@
 #include<unistd.h>
 #include<string.h>
 #include "lexer.h"
+#include "stack.h"
 
 #define MAX_LENGTH 10000
 #define MAX_FILE_SIZE 4096
 
 void brain_fuck_compiler(int,int);
-long _sread_file(char* file_content);
+long _sread_file(char* file_content,char* _file_name);
 
-void main(int argv,char* argc[]){
-  /*This is the initial thought of my program that I have in my mind before
-    reasearching or anything lets hope it is like this.*/
-  //initilizes 1D memory space with all values initialized with 0.
-  //reads one line.
-  //checks for errors in memory,when value in a cell value goes less than 0 or more than 255
-  //executes operation
-  //repeat still the end of line.
-  //exits
-  //brain_fuck_compiler(1,0);
+void main(int argv,char* argc[]){ 
 
-
+  if (argv<2){
+    fprintf(stderr,"[ERROR] Too few arguments\n\r[USAGE] ./compile [FILENAME].bf\n");
+    exit(-1);
+  } 
+  
   char* file_contents = malloc(MAX_FILE_SIZE);
   long _f_size;
-  _f_size = _sread_file(file_contents);
-  printf("%s",file_contents);
-  
+
+  _f_size = _sread_file(file_contents,argc[1]);
+
   TOKEN* token_arr = tokenizer(file_contents,(size_t)_f_size);  // tokenizes the result and returns an array of TOKENS
   
   for (int i=0;i<_f_size-1;i++){
-      printf("%d",token_arr[i].tok_t);
+      printf("Token Type:%d Token Val:%c\n",token_arr[i].tok_t,token_arr[i].tok_val);
   }
+   // Tokenization block
+
+  { 
+    parser(token_arr,_f_size);
+  } // Parsing block
+
   free(token_arr); 
 	return;
 	}
 
-long _sread_file(char* file_content){
+long _sread_file(char* file_content,char* _file_name){
  
-  FILE* _file = fopen("brainfuck_code.bf","r");
+  FILE* _file = fopen(_file_name,"r");
   if ( _file == NULL ) return -1;
-
   fseek(_file,0,SEEK_END);
   long _f_size = ftell(_file);
   fseek(_file,0,SEEK_SET);
 
   fread(file_content,_f_size,1,_file);
+  if (strlen(file_content)<0){
+    fprintf(stderr,"[ERROR] Source can't be empty!");
+    exit(-1);
+  }
   fclose(_file);
   return _f_size;
 }
