@@ -1,11 +1,11 @@
 all:compile
 compile:main.c execute
 	@echo "Compiling main file"
-	gcc  main.c -o main.o
+	gcc  main.c -o Brainfuck.o 
 
 execute: main.o
 	@read -p "Enter File Directory: " file;
-	./main.o $$file 
+	./Brainfuck.o $$file 
 
 clean:main.o
 	@echo "Removing binaries"
