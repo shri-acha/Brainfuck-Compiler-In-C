@@ -3,7 +3,6 @@
 #include<unistd.h>
 #include<string.h>
 #include "lexer.h"
-#include "stack.h"
 
 #define MAX_LENGTH 10000
 #define MAX_FILE_SIZE 4096
@@ -11,32 +10,39 @@
 void brain_fuck_compiler(int,int);
 long _sread_file(char* file_content,char* _file_name);
 
-void main(int argv,char* argc[]){ 
+int main(int argv,char* argc[]){ 
 
   if (argv<2){
     fprintf(stderr,"[ERROR] Too few arguments\n\r[USAGE] ./compile [FILENAME].bf\n");
     exit(-1);
   } 
   
-  char* file_contents = malloc(MAX_FILE_SIZE);
+  char* file_contents = (char*) malloc(MAX_FILE_SIZE);
   long _f_size;
+
 
   _f_size = _sread_file(file_contents,argc[1]);
 
+  int token_arr_size = (int)_f_size - 1; // because of the \0 null byte in the file.
+  
   TOKEN* token_arr = tokenizer(file_contents,(size_t)_f_size);  // tokenizes the result and returns an array of TOKENS
   
-  for (int i=0;i<_f_size-1;i++){
-      printf("Token Type:%d Token Val:%c\n",token_arr[i].tok_t,token_arr[i].tok_val);
-  }
+  // for (int i=0;i<token_arr_size;i++){ 
+  //   printf("Token Type:%d Token Val:%c\n",token_arr[i].tok_t,token_arr[i].tok_val);
+  // }
    // Tokenization block
 
   { 
-    parser(token_arr,_f_size);
+    AST_node* parsed_tree = parser(token_arr,token_arr_size);
+    while (parsed_tree != NULL) { 
+      printf("TOKEN_TYPE:%d", parsed_tree->token->tok_t);
+      parsed_tree = parsed_tree->next;
+    } 
   } // Parsing block
 
   free(token_arr); 
-	return;
-	}
+	return 0;
+}
 
 long _sread_file(char* file_content,char* _file_name){
  
