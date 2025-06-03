@@ -3,6 +3,8 @@
 #include<unistd.h>
 #include<string.h>
 #include "lexer.h"
+#include "parser.h"
+#include "tokens_and_structures.h"
 
 #define MAX_LENGTH 10000
 #define MAX_FILE_SIZE 4096
@@ -32,13 +34,11 @@ int main(int argv,char* argc[]){
   // }
    // Tokenization block
 
-  { 
-    AST_node* parsed_tree = parser(token_arr,token_arr_size);
-    while (parsed_tree != NULL) { 
-      printf("TOKEN_TYPE:%d", parsed_tree->token->tok_t);
-      parsed_tree = parsed_tree->next;
-    } 
-  } // Parsing block
+    AST_node* parsed_tree = parser(&token_arr[0]);
+  while (parsed_tree!=NULL) {
+    printf("SCOPE:%d\t",parsed_tree->scope);
+    parsed_tree = parsed_tree->next; 
+  }
 
   free(token_arr); 
 	return 0;
