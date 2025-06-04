@@ -49,4 +49,31 @@ AST_node *AST_node_create(TOKEN *token_val) {
   buff->body = NULL;
   return buff;
 }
+
+typedef struct ASM_INSTRUCTION {
+  char* operation;
+  char** operands;
+}ASM_INSTRUCTION;
+
+ASM_INSTRUCTION* asm_instruction_create(char* instruction, char** operands){
+  ASM_INSTRUCTION* instruction_buf = (ASM_INSTRUCTION*) malloc(sizeof(ASM_INSTRUCTION));
+  instruction_buf->operation = instruction;
+  instruction_buf->operands = operands;
+  return instruction_buf;
+}
+
+// ASM 
+// Initial global mutable value 
+// int strip [ MAX_SIZE ]
+// variable global value 
+// int* strip_ptr;
+// instructions:
+//
+// ADD 
+//
+//
+//
+//
+//
+
 #endif
