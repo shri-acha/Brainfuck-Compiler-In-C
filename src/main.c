@@ -1,7 +1,7 @@
+#include "generator.h"
 #include "lexer.h"
 #include "parser.h"
 #include "tokens_and_structures.h"
-#include "generator.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,23 +42,23 @@ int main(int argv, char *argc[]) {
 
   AST_node *parsed_tree = parser(&token_arr[0]);
 
-  printf(".section .bss\n.section .text\nglobal _start\n_start:");
-  generator_asm(parsed_tree);
-
+  FILE *f = (FILE *)fopen("out.asm", "w+");
+  generate_asm(f, parsed_tree);
+  display_ast(parsed_tree);
+  fclose(f);
   free(token_arr);
   return 0;
 }
 
-void display_ast(AST_node* head){
-  AST_node* temp = head;
+void display_ast(AST_node *head) {
+  AST_node *temp = head;
 
   if (temp == NULL) {
     return;
   }
   if (temp->token != NULL) {
-    printf("[AST-NODE] %c\t[SCOPE] %d\n",temp->token->tok_val,temp->scope);
-  }
-  else if (temp->token == NULL) {
+    printf("[AST-NODE] %c\t[SCOPE] %d\n", temp->token->tok_val, temp->scope);
+  } else if (temp->token == NULL) {
     printf("[LOOP BODY ENTER]\n");
     display_ast(temp->body);
     printf("[LOOP BODY EXIT]\n");

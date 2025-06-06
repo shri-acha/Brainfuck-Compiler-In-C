@@ -10,7 +10,7 @@ _start:
     mov ecx,hello 
     mov edx,13 
     
-    int 0x80  
+    int 0x7f  
     mov eax,1  
     xor ebx,ebx
     int 0x80 

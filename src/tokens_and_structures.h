@@ -6,6 +6,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#define MAX_ASM_SIZE 0xFFFF
+
 typedef enum TOKEN_TYPE {
   PROGRAM_S,        // Start of program
   PROGRAM_E,        // End of program
@@ -53,12 +55,14 @@ AST_node *AST_node_create(TOKEN *token_val) {
 typedef struct ASM_INSTRUCTION {
   char* operation;
   char** operands;
+  size_t operands_size;
 }ASM_INSTRUCTION;
 
-ASM_INSTRUCTION* asm_instruction_create(char* instruction, char** operands){
+ASM_INSTRUCTION* asm_instruction_create(char* instruction, char** operands, int operands_size){
   ASM_INSTRUCTION* instruction_buf = (ASM_INSTRUCTION*) malloc(sizeof(ASM_INSTRUCTION));
   instruction_buf->operation = instruction;
   instruction_buf->operands = operands;
+  instruction_buf->operands_size = operands_size;
   return instruction_buf;
 }
 

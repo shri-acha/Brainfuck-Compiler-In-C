@@ -30,8 +30,6 @@ AST_node *parse_loop(TOKEN **token) {
 
 AST_node *parse_block(TOKEN **token) {
   // *note to myself*: DOUBLE POINTER here used for convenience.
-
-
   AST_node *head = NULL;
   AST_node **tail = &head;
 
